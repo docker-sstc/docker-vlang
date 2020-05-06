@@ -35,5 +35,5 @@ RUN set -ex; \
 	mv /opt/vlang/vlib/net/http/http_test.v /opt/vlang/vlib/net/http/http_test.v.broken; \
 	v test-compiler
 
-WORKDIR /opt/vlang
+WORKDIR /root
 CMD ["bash"]

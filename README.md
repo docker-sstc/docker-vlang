@@ -6,8 +6,10 @@ If you wanted to make it from latest source, you could consider [taojy123/vlang]
 
 ## Usage
 
-```sh
-docker run -it --rm sstc/vlang
-
-docker run -it --rm sstc/vlang v
+```console
+docker run -it --rm -v ~:/root sstc/vlang
+# v
+V 0.1.24 0d93eeb
+Use Ctrl-C or `exit` to exit
+>>>
 ```
