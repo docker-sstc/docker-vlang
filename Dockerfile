@@ -1,6 +1,6 @@
 FROM buildpack-deps:buster-curl
 
-ARG VERSION=0.1.24
+ARG VERSION=0.2.2
 
 ENV VLANG_VERSION $VERSION
 ENV VLANG_SRC_URL https://github.com/vlang/v/archive/${VERSION}.zip
@@ -12,15 +12,15 @@ RUN set -ex; \
 	apt-get update; \
 	DEBIAN_FRONTEND=noninteractive \
 	apt-get install -y --no-install-recommends \
-		gcc clang make git \
-		unzip \
-		libssl-dev libx11-dev libglfw3-dev libsqlite3-dev libfreetype6-dev \
+	gcc clang make git \
+	unzip \
+	libssl-dev libx11-dev libglfw3-dev libsqlite3-dev libfreetype6-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
 RUN set -ex; \
-# We need source, otherwise some test cases won't pass (module "compiler" (not found), failed to open file "/opt/vlang/vlib/v/gen/tests/1.vv")
+	# We need source, otherwise some test cases won't pass (module "compiler" (not found), failed to open file "/opt/vlang/vlib/v/gen/tests/1.vv")
 	wget -O src.zip "$VLANG_SRC_URL"; \
 	echo "$VLANG_SRC_SHA256 src.zip" | sha256sum -c; \
 	unzip src.zip; \
@@ -31,8 +31,6 @@ RUN set -ex; \
 	unzip -o v.zip -d vlang; \
 	rm v.zip; \
 	ln -s /opt/vlang/v /usr/local/bin/v; \
-# The v0.1.24 vlib/net/http/http_test.v is broken (invalid URL in redirect, hang with no error)
-	mv /opt/vlang/vlib/net/http/http_test.v /opt/vlang/vlib/net/http/http_test.v.broken; \
 	v test-compiler
 
 WORKDIR /root
