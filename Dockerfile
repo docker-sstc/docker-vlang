@@ -30,9 +30,8 @@ RUN set -ex; \
 	echo "$VLANG_SHA256 v.zip" | sha256sum -c; \
 	unzip -o v.zip -d vlang; \
 	rm v.zip; \
-	chmod +x /opt/vlang/v; \
 	ln -s /opt/vlang/v /usr/local/bin/v; \
-	v test-compiler
+	v test-self
 
 WORKDIR /root
 CMD ["bash"]
