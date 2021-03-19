@@ -20,17 +20,11 @@ RUN set -ex; \
 
 WORKDIR /opt
 RUN set -ex; \
-	# We need source, otherwise some test cases won't pass (module "compiler" (not found), failed to open file "/opt/vlang/vlib/v/gen/tests/1.vv")
-	wget -O src.zip "$VLANG_SRC_URL"; \
-	echo "$VLANG_SRC_SHA256 src.zip" | sha256sum -c; \
-	unzip src.zip; \
-	mv v-${VLANG_VERSION} vlang; \
-	rm src.zip; \
 	wget -O v.zip "$VLANG_URL"; \
 	echo "$VLANG_SHA256 v.zip" | sha256sum -c; \
 	unzip -o v.zip -d vlang; \
 	rm v.zip; \
-	ln -s /opt/vlang/v /usr/local/bin/v; \
+	ln -s /opt/vlang/v/v /usr/local/bin/v; \
 	v test-self
 
 WORKDIR /root
