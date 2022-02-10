@@ -1,12 +1,10 @@
 FROM buildpack-deps:buster-curl
 
-ARG VERSION=0.2.2
+ARG VERSION=0.2.4
 
 ENV VLANG_VERSION $VERSION
 ENV VLANG_SRC_URL https://github.com/vlang/v/archive/${VERSION}.zip
-ENV VLANG_SRC_SHA256 17b6e5391a2e362f18ace0a27092a655826d1c1408c40cd1f7329f9b8f08f379
 ENV VLANG_URL https://github.com/vlang/v/releases/download/${VERSION}/v_linux.zip
-ENV VLANG_SHA256 d791102173b35f8af1446b7a6207b326dc8d3ddf3f43f433979616550e85d56d
 
 RUN set -ex; \
 	apt-get update; \
@@ -21,7 +19,6 @@ RUN set -ex; \
 WORKDIR /opt
 RUN set -ex; \
 	wget -O v.zip "$VLANG_URL"; \
-	echo "$VLANG_SHA256 v.zip" | sha256sum -c; \
 	unzip -o v.zip -d vlang; \
 	rm v.zip; \
 	ln -s /opt/vlang/v/v /usr/local/bin/v; \
